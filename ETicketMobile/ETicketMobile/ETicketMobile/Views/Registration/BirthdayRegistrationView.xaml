@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:local="clr-namespace:ETicketMobile.Localizations.Extensions;assembly=ETicketMobile" 
+    xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    x:Class="ETicketMobile.Views.Registration.BirthdayRegistrationView">
+
+    <ContentPage.Content>
+
+        <Grid Margin="10, 0">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.6*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.9*"/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+
+            <Label
+                Grid.Row="0"
+                Text="{local:Translate Text=EnterBirthday}"
+                Style="{x:StaticResource Key=TitleLabelStyle}"/>
+
+            <telerikInput:RadDateTimePicker
+                Grid.Row="1"
+                x:Name="BirthDay"
+                DisplayStringFormat="dd.MM.yyyy"
+                SpinnerFormatString="yyyy MMMM dd"
+                StartDate="1900, 1, 1"
+                EndDate="2013, 1, 1"
+                HorizontalOptions="Center"
+                Placeholder="{Binding DefaultDisplayDate, StringFormat='{0:dd.MM.yyyy}', Mode=OneWay}"
+                AreSpinnerHeadersVisible="True">
+            </telerikInput:RadDateTimePicker>
+
+            <telerikInput:RadButton
+                Grid.Row="2"
+                Command="{Binding NavigateToConfirmEmailView, Mode=OneTime}"
+                CommandParameter="{Binding Source={x:Reference BirthDay}, Path=SelectedDate, Mode=OneWay}"
+                Text="{local:Translate Text=Next}"
+                Style="{x:StaticResource Key=ActionButtonStyle}"/>
+            
+        </Grid>
+
+    </ContentPage.Content>
+
+</ContentPage>
