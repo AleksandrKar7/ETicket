@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="http://prismlibrary.com" 
+    xmlns:bindingconverters="clr-namespace:ETicketMobile.UserInterface.BindingConverters;assembly=ETicketMobile.UserInterface"
+    xmlns:local="clr-namespace:ETicketMobile.Localizations.Extensions;assembly=ETicketMobile"
+    xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    x:Class="ETicketMobile.Views.Registration.EmailRegistrationView">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <bindingconverters:StringToColorConverter x:Key="StringToColorConverter"/>
+            <bindingconverters:StringToBooleanConverter x:Key="StringToBooleanConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid Margin="10, 10">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.9*"/>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="1.4*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="0.7*"/>
+        </Grid.RowDefinitions>
+
+        <Label
+            Grid.ColumnSpan="2"
+            Grid.Row="0"
+            Text="{local:Translate Text=EnterEmail}"
+            Style="{x:StaticResource Key=TitleLabelStyle}"/>
+
+        <Label
+            Grid.ColumnSpan="2"
+            Grid.Row="1"
+            Text="{local:Translate Text=EmailHint}"
+            Style="{x:StaticResource Key=NormalLabelStyle}"/>
+
+        <Label
+            Grid.ColumnSpan="2"
+            Grid.Row="2"
+            IsVisible="{Binding EmailWarning, Converter={x:StaticResource Key=StringToBooleanConverter}, Mode=OneWay}"
+            Text="{Binding EmailWarning, Mode=OneWay}"
+            TextColor="{Binding EmailWarning, Converter={x:StaticResource Key=StringToColorConverter}, Mode=OneWay}"
+            Style="{x:StaticResource Key=NormalLabelStyle}"/>
+
+        <telerikInput:RadEntry
+            Grid.ColumnSpan="2"
+            Grid.Row="3"
+            x:Name="EmailEntry"
+            WatermarkText="{local:Translate Text=Email}"
+            Style="{x:StaticResource Key=LoginEntryStyle}"/>
+
+        <telerikInput:RadButton
+            Grid.ColumnSpan="2"
+            Grid.Row="4"
+            Command="{Binding NavigateToPhoneRegistrationView, Mode=OneTime}"
+            CommandParameter="{Binding Source={x:Reference EmailEntry}, Path=Text, Mode=OneWay}"
+            Text="{local:Translate Text=Next}"
+            Style="{x:StaticResource Key=ActionButtonStyle}"/>
+
+        <Label
+            Grid.Column="0"
+            Grid.Row="6"
+            Text="{local:Translate Text=AlreadySignUp}"
+            Style="{x:StaticResource Key=NormalLabelStyle}"/>
+
+        <telerikInput:RadButton
+            Grid.Column="1"
+            Grid.Row="6"
+            Command="{Binding NavigateToSignInView, Mode=OneTime}"
+            Text="{local:Translate Text=SignIn}"
+            Style="{x:StaticResource Key=SecondaryActionButtonStyle}"/>
+
+    </Grid>
+
+</ContentPage>
